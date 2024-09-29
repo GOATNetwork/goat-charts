@@ -1,11 +1,11 @@
-{{- if .Values.configMap.enabled }}
+{{- if .Values.network.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ include "goat-geth.fullname" . }}-genesis
 data:
-  geth-genesis.json: |-
-    {{- .Files.Get "geth-genesis.json" | nindent 4 }}
-  goat-genesis.json: |-
-    {{- .Files.Get "goat-genesis.json" | nindent 4 }}
+  geth.json: |-
+    {{- .Files.Get (printf "genesis/%s/geth.json" .Values.network.type) | nindent 4 }}
+  goat.json: |-
+    {{- .Files.Get (printf "genesis/%s/goat.json" .Values.network.type) | nindent 4 }}
 {{- end }}

@@ -84,11 +84,12 @@ persistence:
     storageClass: "standard"
     size: 50Gi
 
-configMap:
+network:
+  type: regtest # regtest, testnet, mainnet
   enabled: true
   data:
-    goat-genesis.json
-    geth-genesis.json
+    goat.json
+    geth.json
 
 # Service configuration
 service:

@@ -1,0 +1,173 @@
+{
+  "app_name": "goatd",
+  "app_version": "HEAD-61c78057c5de8b5f00c1ce751ca870927aa32951",
+  "genesis_time": "2024-09-29T09:07:25.150894Z",
+  "chain_id": "goat",
+  "initial_height": 1,
+  "app_hash": null,
+  "app_state": {
+    "auth": {
+      "params": {
+        "max_memo_characters": "256",
+        "tx_sig_limit": "7",
+        "tx_size_cost_per_byte": "10",
+        "sig_verify_cost_ed25519": "590",
+        "sig_verify_cost_secp256k1": "1000"
+      },
+      "accounts": [
+        {
+          "@type": "/cosmos.auth.v1beta1.BaseAccount",
+          "address": "goat1azttfzv2nw4fuhcqu7nhr5mkawp97t5g2nfrj9",
+          "pub_key": {
+            "@type": "/cosmos.crypto.secp256k1.PubKey",
+            "key": "AwI0xUT2vCfVewcTl2xn0Sn7DGj9g0b4tGSJXNi6hz0z"
+          },
+          "account_number": "0",
+          "sequence": "0"
+        },
+        {
+          "@type": "/cosmos.auth.v1beta1.BaseAccount",
+          "address": "goat1gxxkegwtjnnnpsn74v9fyzwtr3q9f6c3rhump5",
+          "pub_key": {
+            "@type": "/cosmos.crypto.secp256k1.PubKey",
+            "key": "A+UW/34tnJEKcnTs7GJl4w4c/Fi51wU099Dau8gkIDK5"
+          },
+          "account_number": "1",
+          "sequence": "0"
+        }
+      ]
+    },
+    "bank": {
+      "params": {
+        "send_enabled": [],
+        "default_send_enabled": true
+      },
+      "balances": [],
+      "supply": [],
+      "denom_metadata": [],
+      "send_enabled": []
+    },
+    "bitcoin": {
+      "params": {
+        "chain_config": {
+          "network_name": "regtest",
+          "pubkey_hash_addr_prefix": 111,
+          "script_hash_addr_prefix": 196,
+          "bech32_hrp": "bcrt"
+        },
+        "confirmation_number": 1,
+        "min_deposit_amount": "1000000",
+        "deposit_magic_prefix": "R1RUMA=="
+      },
+      "block_tip": "0",
+      "block_hashes": {
+        "0": "BiJuRhEaC1nKrxJgQ+tbvyjDTzpeMyofx7K3PPGIkQ8="
+      },
+      "eth_tx_nonce": "0",
+      "pubkey": {
+        "secp256k1": "A4NWDe+EBI7e/mN9ARmkQo3RKkJ2WhGLK/d5hAV2M8UO"
+      },
+      "queue": {
+        "block_number": "0",
+        "deposits": [],
+        "paid_withdrawals": [],
+        "rejected_withdrawals": []
+      },
+      "deposits": [],
+      "withdrawals": []
+    },
+    "consensus": null,
+    "goat": {
+      "params": {},
+      "eth_block": {
+        "parent_hash": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+        "fee_recipient": "AAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+        "state_root": "pH4Cm0IDXeScYKmtO6obhLYkW7h52BVnupO8oqYka/o=",
+        "receipts_root": "VugfFxvMVab/g0XmksD4bltI4BuZbK3AAWIvteNjtCE=",
+        "logs_bloom": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "prev_randao": "AQ==",
+        "block_number": "0",
+        "gas_limit": "30000000",
+        "gas_used": "0",
+        "timestamp": "1727600842",
+        "extra_data": "AFboHxcbzFWm/4NF5pLA+G5bSOAbmWytwAFiL7XjY7Qh",
+        "base_fee_per_gas": "Hc1lAA==",
+        "block_hash": "mTzHYA+QhV0pHxTiZw46YYNsDG26yDPlrvD8orhfXno=",
+        "transactions": [],
+        "beacon_root": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+        "blob_gas_used": "0",
+        "excess_blob_gas": "0",
+        "gas_revenue": {
+          "amount": "0"
+        },
+        "add_voter_req": [],
+        "rm_voter_req": [],
+        "withdrawal_req": [],
+        "rbf_req": [],
+        "cancel1_req": []
+      },
+      "beacon_root": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+    },
+    "locking": {
+      "params": {},
+      "validators": [
+        {
+          "pubkey": "AwI0xUT2vCfVewcTl2xn0Sn7DGj9g0b4tGSJXNi6hz0z",
+          "power": "1"
+        }
+      ]
+    },
+    "relayer": {
+      "params": {
+        "electing_period": "600s",
+        "accept_proposer_timeout": "0s"
+      },
+      "relayer": {
+        "epoch": "0",
+        "proposer": "goat1gxxkegwtjnnnpsn74v9fyzwtr3q9f6c3rhump5",
+        "voters": [],
+        "last_elected": "2024-09-29T09:07:25.264452Z",
+        "proposer_accepted": true
+      },
+      "sequence": "0",
+      "voters": {
+        "goat1gxxkegwtjnnnpsn74v9fyzwtr3q9f6c3rhump5": {
+          "vote_key": "qXFYiL6kupgKh9wKUzFjTCUWExjaDrpci2NuOKf8hN5GBQ+9Xq6Abj3FFcdWA9RuDolVUycOf68/HDbxH42jZAqDuonvczKrvvrljeuTiddRYIpggH8iZcSyX7Cqgl3Z",
+          "status": "VOTER_STATUS_ACTIVATED",
+          "height": "0"
+        }
+      },
+      "pubkeys": [
+        {
+          "secp256k1": "A4NWDe+EBI7e/mN9ARmkQo3RKkJ2WhGLK/d5hAV2M8UO"
+        }
+      ],
+      "randao": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+    },
+    "runtime": null
+  },
+  "consensus": {
+    "params": {
+      "block": {
+        "max_bytes": "6348800",
+        "max_gas": "-1"
+      },
+      "evidence": {
+        "max_age_num_blocks": "100000",
+        "max_age_duration": "172800000000000",
+        "max_bytes": "1048576"
+      },
+      "validator": {
+        "pub_key_types": [
+          "secp256k1"
+        ]
+      },
+      "version": {
+        "app": "0"
+      },
+      "abci": {
+        "vote_extensions_enable_height": "0"
+      }
+    }
+  }
+}

@@ -21,7 +21,7 @@ spec:
         imagePullPolicy: {{ .Values.image.geth.pullPolicy }}
         command: ["sh", "-c"]
         args:
-        - "geth init --cache.preimages=true /genesis/geth-genesis.json"
+        - "geth init --cache.preimages=true /genesis/geth.json"
         volumeMounts:
         - name: geth-data
           mountPath: /root/.ethereum
@@ -33,7 +33,7 @@ spec:
         imagePullPolicy: {{ .Values.image.goat.pullPolicy }}
         command: ["sh", "-c"]
         args:
-        - "goatd init --overwrite --home /goat devnet && cp -rf /genesis/goat-genesis.json /goat/config/goat-genesis.json"
+        - "goatd init --overwrite --home /goat {{ .Values.network.type }} && cp -rf /genesis/goat.json /goat/config/goat.json"
         volumeMounts:
         - name: goat-data
           mountPath: /goat
