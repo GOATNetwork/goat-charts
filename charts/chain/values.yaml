@@ -1,0 +1,97 @@
+# Common configuration
+image:
+  goat:
+    repository: ghcr.io/goatnetwork/goat
+    tag: testnet
+    pullPolicy: Always
+  geth:
+    repository: ghcr.io/goatnetwork/goat-geth
+    tag: testnet
+    pullPolicy: Always
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+# Network configuration
+network:
+  chainId: 2345
+  networkId: 2345
+
+# Goat configuration
+goat:
+  enabled: true
+  args:
+    - --home
+    - /goat
+    - --goat.geth
+    - /root/.ethereum/geth.ipc
+    - --api.enable
+    - --api.address=tcp://0.0.0.0:1317
+    - --p2p.persistent_peers
+    - 10732865500c75b9b51cd7ca6fb0155673e835a5@175.41.182.177:26656
+
+# Geth configuration
+geth:
+  enabled: true
+  args:
+    - "--http"
+    - "--http.addr=0.0.0.0"
+    - "--http.port=8545"
+    - "--http.corsdomain=*"
+    - "--http.api=eth,net,web3,txpool,debug"
+    - "--ws"
+    - "--ws.addr=0.0.0.0"
+    - "--ws.port=8546"
+    - "--ws.origins=*"
+
+# Role configuration
+roles:
+  rpc:
+    enabled: false
+    replicas: 1
+    extraArgs:
+      goat: []
+      geth: []
+  validator:
+    enabled: false
+    replicas: 1
+    extraArgs:
+      goat:
+        - "--validator"
+      geth:
+        - "--mine"
+        - "--miner.etherbase=0x0000000000000000000000000000000000000000"
+  relayer:
+    enabled: false
+    replicas: 1
+    extraArgs:
+      goat:
+        - "--relayer"
+      geth: []
+
+# Persistent storage
+persistence:
+  enabled: true
+  geth:
+    storageClass: "standard"
+    size: 50Gi
+  goat:
+    storageClass: "standard"
+    size: 50Gi
+
+configMap:
+  enabled: true
+  data:
+    goat-genesis.json
+    geth-genesis.json
+
+# Service configuration
+service:
+  type: ClusterIP
+  goatPort: 26657
+  gethPort: 8545

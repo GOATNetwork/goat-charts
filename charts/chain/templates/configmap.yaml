@@ -1,0 +1,11 @@
+{{- if .Values.configMap.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "goat-geth.fullname" . }}-genesis
+data:
+  geth-genesis.json: |-
+    {{- .Files.Get "geth-genesis.json" | nindent 4 }}
+  goat-genesis.json: |-
+    {{- .Files.Get "goat-genesis.json" | nindent 4 }}
+{{- end }}

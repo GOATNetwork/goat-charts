@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "goat-geth.fullname" . }}
+  labels:
+    {{- include "goat-geth.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    {{- include "goat-geth.selectorLabels" . | nindent 4 }}
+  ports:
+  - name: geth-http
+    port: {{ .Values.service.gethPort }}
+    targetPort: 8545
+    protocol: TCP
+  - name: goat-api
+    port: {{ .Values.service.goatPort }}
+    targetPort: 26657
+    protocol: TCP

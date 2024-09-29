@@ -1,0 +1,101 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "goat-geth.fullname" . }}
+  labels:
+    {{- include "goat-geth.labels" . | nindent 4 }}
+spec:
+  serviceName: {{ include "goat-geth.fullname" . }}
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "goat-geth.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "goat-geth.selectorLabels" . | nindent 8 }}
+    spec:
+      initContainers:
+      - name: geth-init
+        image: "{{ .Values.image.geth.repository }}:{{ .Values.image.geth.tag }}"
+        imagePullPolicy: {{ .Values.image.geth.pullPolicy }}
+        command: ["sh", "-c"]
+        args:
+        - "geth init --cache.preimages=true /genesis/geth-genesis.json"
+        volumeMounts:
+        - name: geth-data
+          mountPath: /root/.ethereum
+        - name: genesis-config
+          mountPath: /genesis
+
+      - name: goat-init
+        image: "{{ .Values.image.goat.repository }}:{{ .Values.image.goat.tag }}"
+        imagePullPolicy: {{ .Values.image.goat.pullPolicy }}
+        command: ["sh", "-c"]
+        args:
+        - "goatd init --overwrite --home /goat devnet && cp -rf /genesis/goat-genesis.json /goat/config/goat-genesis.json"
+        volumeMounts:
+        - name: goat-data
+          mountPath: /goat
+        - name: genesis-config
+          mountPath: /genesis
+
+      containers:
+      - name: geth
+        image: "{{ .Values.image.geth.repository }}:{{ .Values.image.geth.tag }}"
+        imagePullPolicy: {{ .Values.image.geth.pullPolicy }}
+        args:
+        {{- range .Values.geth.args }}
+        - {{ . | quote }}
+        {{- end }}
+        volumeMounts:
+        - name: geth-data
+          mountPath: /root/.ethereum
+        livenessProbe:
+          exec:
+            command: ["geth", "attach", "--exec", "eth.blockNumber"]
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 5
+
+      - name: goat
+        image: "{{ .Values.image.goat.repository }}:{{ .Values.image.goat.tag }}"
+        imagePullPolicy: {{ .Values.image.goat.pullPolicy }}
+        args:
+        {{- range .Values.goat.args }}
+        - {{ . | quote }}
+        {{- end }}
+        volumeMounts:
+        - name: goat-data
+          mountPath: /goat
+        - name: geth-data
+          mountPath: /root/.ethereum
+        readinessProbe:
+          exec:
+            command: ["goat", "status"]
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 5
+      volumes:
+      - name: genesis-config
+        configMap:
+          name: {{ include "goat-geth.fullname" . }}-genesis
+  volumeClaimTemplates:
+  - metadata:
+      name: geth-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: {{ .Values.persistence.geth.storageClass | quote }}
+      resources:
+        requests:
+          storage: {{ .Values.persistence.geth.size | quote }}
+  - metadata:
+      name: goat-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: {{ .Values.persistence.goat.storageClass | quote }}
+      resources:
+        requests:
+          storage: {{ .Values.persistence.goat.size | quote }}
