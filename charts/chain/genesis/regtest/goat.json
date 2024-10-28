@@ -1,7 +1,7 @@
 {
   "app_name": "goatd",
   "app_version": "HEAD-61c78057c5de8b5f00c1ce751ca870927aa32951",
-  "genesis_time": "2024-09-29T09:07:25.150894Z",
+  "genesis_time": "2024-09-29T12:28:19.888478Z",
   "chain_id": "goat",
   "initial_height": 1,
   "app_hash": null,
@@ -17,10 +17,10 @@
       "accounts": [
         {
           "@type": "/cosmos.auth.v1beta1.BaseAccount",
-          "address": "goat1azttfzv2nw4fuhcqu7nhr5mkawp97t5g2nfrj9",
+          "address": "goat1jel9mv045enfy2zqtz9atkspjpxuw64hchsseu",
           "pub_key": {
             "@type": "/cosmos.crypto.secp256k1.PubKey",
-            "key": "AwI0xUT2vCfVewcTl2xn0Sn7DGj9g0b4tGSJXNi6hz0z"
+            "key": "A5BfNuOQGpQ0mcE/qvY8exp2XHGslhehuDufMhiSTpV8"
           },
           "account_number": "0",
           "sequence": "0"
@@ -33,6 +33,26 @@
             "key": "A+UW/34tnJEKcnTs7GJl4w4c/Fi51wU099Dau8gkIDK5"
           },
           "account_number": "1",
+          "sequence": "0"
+        },
+        {
+          "@type": "/cosmos.auth.v1beta1.BaseAccount",
+          "address": "goat1un2gptrl4ecx6v9hwjjz7yw5xf7yyvt6zehxvl",
+          "pub_key": {
+            "@type": "/cosmos.crypto.secp256k1.PubKey",
+            "key": "AuACp3nZlVym6hPIBueNZrhO4/APMKRfC0d8MK4hWzQZ"
+          },
+          "account_number": "2",
+          "sequence": "0"
+        },
+        {
+          "@type": "/cosmos.auth.v1beta1.BaseAccount",
+          "address": "goat1vrrrqdhu7dy70472lmkgr0xt5ueg9kzy26289m",
+          "pub_key": {
+            "@type": "/cosmos.crypto.secp256k1.PubKey",
+            "key": "AnwEN95+TSEUnY+WJlKU0FUZOHlpbsL7oMV/fBcRKNg9"
+          },
+          "account_number": "3",
           "sequence": "0"
         }
       ]
@@ -112,7 +132,7 @@
       "params": {},
       "validators": [
         {
-          "pubkey": "AwI0xUT2vCfVewcTl2xn0Sn7DGj9g0b4tGSJXNi6hz0z",
+          "pubkey": "A5BfNuOQGpQ0mcE/qvY8exp2XHGslhehuDufMhiSTpV8",
           "power": "1"
         }
       ]
@@ -125,14 +145,27 @@
       "relayer": {
         "epoch": "0",
         "proposer": "goat1gxxkegwtjnnnpsn74v9fyzwtr3q9f6c3rhump5",
-        "voters": [],
-        "last_elected": "2024-09-29T09:07:25.264452Z",
+        "voters": [
+          "goat1un2gptrl4ecx6v9hwjjz7yw5xf7yyvt6zehxvl",
+          "goat1vrrrqdhu7dy70472lmkgr0xt5ueg9kzy26289m"
+        ],
+        "last_elected": "2024-09-29T12:28:19.992622Z",
         "proposer_accepted": true
       },
       "sequence": "0",
       "voters": {
         "goat1gxxkegwtjnnnpsn74v9fyzwtr3q9f6c3rhump5": {
           "vote_key": "qXFYiL6kupgKh9wKUzFjTCUWExjaDrpci2NuOKf8hN5GBQ+9Xq6Abj3FFcdWA9RuDolVUycOf68/HDbxH42jZAqDuonvczKrvvrljeuTiddRYIpggH8iZcSyX7Cqgl3Z",
+          "status": "VOTER_STATUS_ACTIVATED",
+          "height": "0"
+        },
+        "goat1un2gptrl4ecx6v9hwjjz7yw5xf7yyvt6zehxvl": {
+          "vote_key": "tVcRc5PL3gCijMAGEU3tytNRuK7hCY6JyYTkhp2DBrPuINBqXQRSRJ1QyKtxq2IeCp8lQoTNaV6oDnGQXTu6Fd1po6IHht8ymDDDebdsBYgm/AZd7bGgb7Sc5kqgwVUK",
+          "status": "VOTER_STATUS_ACTIVATED",
+          "height": "0"
+        },
+        "goat1vrrrqdhu7dy70472lmkgr0xt5ueg9kzy26289m": {
+          "vote_key": "pYBFZiAyuF913MUD1iJBH7fviNicIAFV5F3ZxsAvzdJdxtDe9k3cHadKB+UVpXf1F2ZUQRBoIVyuBz433YMYpNj2yFGgbe9gbZQDdjyUiJLozkjROmEUqH/Oe2+mDRL+",
           "status": "VOTER_STATUS_ACTIVATED",
           "height": "0"
         }
