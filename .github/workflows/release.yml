@@ -29,7 +29,7 @@ jobs:
       - name: Add Helm repo
         run: |
           helm repo add bitnami https://charts.bitnami.com/bitnami
-          helm repo add goat https://goatnetwork.github.io/helm-charts
+          helm repo add goat https://goatnetwork.github.io/goat-charts
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
