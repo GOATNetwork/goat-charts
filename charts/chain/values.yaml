@@ -3,11 +3,11 @@ image:
   goat:
     repository: ghcr.io/goatnetwork/goat
     tag: testnet
-    pullPolicy: Never
+    pullPolicy: IfNotPresent
   geth:
     repository: ghcr.io/goatnetwork/goat-geth
     tag: testnet
-    pullPolicy: Never
+    pullPolicy: IfNotPresent
 
 resources:
   requests:
@@ -32,21 +32,21 @@ goat:
     - --api.enable
     - --api.address=tcp://0.0.0.0:1317
     - --p2p.persistent_peers
-    - 10732865500c75b9b51cd7ca6fb0155673e835a5@175.41.182.177:26656
+    - c9befb6b8421b46ec5cda76171a8cf7539af20fc@52.12.249.134:26656
+    - --log_level=debug
 
 # Geth configuration
 geth:
   enabled: true
   args:
-    - "--http"
-    - "--http.addr=0.0.0.0"
-    - "--http.port=8545"
-    - "--http.corsdomain=*"
-    - "--http.api=eth,net,web3,txpool,debug"
-    - "--ws"
-    - "--ws.addr=0.0.0.0"
-    - "--ws.port=8546"
-    - "--ws.origins=*"
+    - --http
+    - --http.api=eth,net,web3
+    - --http.addr=0.0.0.0
+    - --http.vhosts=*
+    - --http.corsdomain=*
+    - --syncmode=full
+    - --bootnodes=enode://0d41d098846751f0f90ea66e4d7e6741591e9c4bfb6e75d14f78ca3702415fb795adad64b2805f428c86f6ae2ee5315322301e02c63c917f92756a909679599e@52.12.249.134:30303
+    - --log.debug
 
 # Role configuration
 roles:
@@ -84,7 +84,7 @@ persistence:
     size: 50Gi
 
 network:
-  type: regtest # regtest, testnet, mainnet
+  type: testnet # regtest, testnet, mainnet
   enabled: true
   data:
     goat.json
