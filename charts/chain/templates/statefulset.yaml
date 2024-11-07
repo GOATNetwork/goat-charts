@@ -73,7 +73,7 @@ spec:
           mountPath: /root/.ethereum
         readinessProbe:
           exec:
-            command: ["goat", "status"]
+            command: ["goatd", "status"]
           initialDelaySeconds: 5
           periodSeconds: 5
           timeoutSeconds: 5
