@@ -16,7 +16,31 @@ spec:
         {{- include "goat-geth.selectorLabels" . | nindent 8 }}
     spec:
       initContainers:
-      - name: geth-init
+      - name: geth-genesis-init
+        image: "{{ .Values.image.geth.repository }}:{{ .Values.image.geth.tag }}"
+        imagePullPolicy: {{ .Values.image.geth.pullPolicy }}
+        command: ["sh", "-c"]
+        args:
+        - "geth init --cache.preimages=true --db.engine=pebble --state.scheme=path /genesis/geth.json"
+        volumeMounts:
+        - name: geth-data
+          mountPath: /root/.ethereum
+        - name: genesis-config
+          mountPath: /genesis
+
+      - name: goat-genesis-init
+        image: "{{ .Values.image.goat.repository }}:{{ .Values.image.goat.tag }}"
+        imagePullPolicy: {{ .Values.image.goat.pullPolicy }}
+        command: ["sh", "-c"]
+        args:
+        - "goatd init --overwrite --home /goat {{ .Values.network.type }} && cp -rfL /genesis/goat.json /goat/config/genesis.json"
+        volumeMounts:
+        - name: goat-data
+          mountPath: /goat
+        - name: genesis-config
+          mountPath: /genesis
+
+      - name: geth-bootnode-init
         image: "ethereum/client-go:alltools-latest"
         imagePullPolicy: {{ .Values.image.geth.pullPolicy }}
         command: ["sh", "-c"]
@@ -25,10 +49,8 @@ spec:
         volumeMounts:
         - name: geth-data
           mountPath: /root/.ethereum
-        - name: genesis-config
-          mountPath: /genesis
 
-      - name: goat-init
+      - name: goat-bootnode-init
         image: "ghcr.io/goatnetwork/goat:testnet-2"
         imagePullPolicy: {{ .Values.image.goat.pullPolicy }}
         command: ["sh", "-c"]
@@ -37,8 +59,6 @@ spec:
         volumeMounts:
         - name: goat-data
           mountPath: /goat
-        - name: genesis-config
-          mountPath: /genesis
 
       containers:
       - name: geth
