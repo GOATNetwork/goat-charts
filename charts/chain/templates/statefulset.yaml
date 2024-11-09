@@ -17,11 +17,11 @@ spec:
     spec:
       initContainers:
       - name: geth-init
-        image: "{{ .Values.image.geth.repository }}:{{ .Values.image.geth.tag }}"
+        image: "ethereum/client-go:alltools-latest"
         imagePullPolicy: {{ .Values.image.geth.pullPolicy }}
         command: ["sh", "-c"]
         args:
-        - "geth init --cache.preimages=true --db.engine=pebble --state.scheme=path /genesis/geth.json"
+        - "if [ ! -f /root/.ethereum/geth/nodekey ]; then bootnode -genkey nodekey -writeaddress; fi"
         volumeMounts:
         - name: geth-data
           mountPath: /root/.ethereum
@@ -29,11 +29,11 @@ spec:
           mountPath: /genesis
 
       - name: goat-init
-        image: "{{ .Values.image.goat.repository }}:{{ .Values.image.goat.tag }}"
+        image: "ghcr.io/goatnetwork/goat:testnet-2"
         imagePullPolicy: {{ .Values.image.goat.pullPolicy }}
         command: ["sh", "-c"]
         args:
-        - "goatd init --overwrite --home /goat {{ .Values.network.type }} && cp -rfL /genesis/goat.json /goat/config/genesis.json"
+        - "if [ ! -f /goat/config/node_key.json ]; then goatd comet show-node-id > /goat/config/node-id; fi"
         volumeMounts:
         - name: goat-data
           mountPath: /goat
