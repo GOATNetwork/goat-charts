@@ -33,7 +33,7 @@ spec:
         imagePullPolicy: {{ .Values.image.goat.pullPolicy }}
         command: ["sh", "-c"]
         args:
-        - "if [ ! -f /goat/config/node_key.json ]; then goatd comet show-node-id > /goat/config/node-id; fi"
+        - "if [ ! -f /goat/config/node_key.json ]; then goatd comet show-node-id > /goat/config/node_key.json; fi"
         volumeMounts:
         - name: goat-data
           mountPath: /goat
