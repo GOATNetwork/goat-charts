@@ -95,3 +95,4 @@ service:
   type: ClusterIP
   goatPort: 26657
   gethPort: 8545
+  annotations: {}
