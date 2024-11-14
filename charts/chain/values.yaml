@@ -25,28 +25,18 @@ network:
 goat:
   enabled: true
   args:
-    - --home
-    - /goat
-    - --goat.geth
-    - /root/.ethereum/geth.ipc
-    - --api.enable
-    - --api.address=tcp://0.0.0.0:1317
-    - --p2p.persistent_peers
-    - c9befb6b8421b46ec5cda76171a8cf7539af20fc@52.12.249.134:26656
-    - --log_level=debug
+    - start
+    - --goat.geth=/geth/geth.ipc
+    - --goat.preset=bootnode,rpc
+    - --chain-id=goat-testnet3
 
 # Geth configuration
 geth:
   enabled: true
   args:
-    - --http
-    - --http.api=eth,net,web3
-    - --http.addr=0.0.0.0
-    - --http.vhosts=*
-    - --http.corsdomain=*
-    - --syncmode=full
-    - --bootnodes=enode://0d41d098846751f0f90ea66e4d7e6741591e9c4bfb6e75d14f78ca3702415fb795adad64b2805f428c86f6ae2ee5315322301e02c63c917f92756a909679599e@52.12.249.134:30303
-    - --log.debug
+    - --goat=testnet3
+    - --goat.preset=bootnode,rpc
+    - --gcmode=archive
 
 # Persistent storage
 persistence:

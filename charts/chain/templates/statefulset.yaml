@@ -25,7 +25,7 @@ spec:
         {{- end }}
         volumeMounts:
         - name: geth-data
-          mountPath: /root/.ethereum
+          mountPath: /geth
         ports:
         - name: geth-rpc
           containerPort: 8545
@@ -48,7 +48,7 @@ spec:
         - name: goat-data
           mountPath: /goat
         - name: geth-data
-          mountPath: /root/.ethereum
+          mountPath: /geth
         ports:
         - name: goat-rpc
           containerPort: 26657
