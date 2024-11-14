@@ -13,11 +13,15 @@ spec:
   selector:
     {{- include "goat-geth.selectorLabels" . | nindent 4 }}
   ports:
-  - name: geth-http
-    port: {{ .Values.service.gethPort }}
+  - name: geth-rpc
+    port: {{ .Values.service.gethRpcPort }}
     targetPort: 8545
     protocol: TCP
-  - name: goat-api
-    port: {{ .Values.service.goatPort }}
+  - name: goat-grpc
+    port: {{ .Values.service.goatGrpcPort }}
+    targetPort: 9090
+    protocol: TCP
+  - name: goat-rpc
+    port: {{ .Values.service.goatRpcPort }}
     targetPort: 26657
     protocol: TCP

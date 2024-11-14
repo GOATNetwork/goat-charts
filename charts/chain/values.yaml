@@ -93,6 +93,7 @@ network:
 # Service configuration
 service:
   type: ClusterIP
-  goatPort: 26657
-  gethPort: 8545
+  goatGrpcPort: 9090
+  goatRpcPort: 26657
+  gethRpcPort: 8545
   annotations: {}
