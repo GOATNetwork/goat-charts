@@ -26,7 +26,7 @@ goat:
   enabled: true
   args:
     - start
-    - --goat.geth=/geth/geth.ipc
+    - --goat.geth=/root/.ethereum/geth.ipc
     - --goat.preset=bootnode,rpc
     - --chain-id=goat-testnet3
 
