@@ -19,7 +19,7 @@ resources:
 
 # Network configuration
 network:
-  chainId: 48815
+  chainId: 48816
 
 # Goat configuration
 goat:
@@ -48,31 +48,6 @@ geth:
     - --bootnodes=enode://0d41d098846751f0f90ea66e4d7e6741591e9c4bfb6e75d14f78ca3702415fb795adad64b2805f428c86f6ae2ee5315322301e02c63c917f92756a909679599e@52.12.249.134:30303
     - --log.debug
 
-# Role configuration
-roles:
-  rpc:
-    enabled: false
-    replicas: 1
-    extraArgs:
-      goat: []
-      geth: []
-  validator:
-    enabled: false
-    replicas: 1
-    extraArgs:
-      goat:
-        - "--validator"
-      geth:
-        - "--mine"
-        - "--miner.etherbase=0x0000000000000000000000000000000000000000"
-  relayer:
-    enabled: false
-    replicas: 1
-    extraArgs:
-      goat:
-        - "--relayer"
-      geth: []
-
 # Persistent storage
 persistence:
   enabled: true
@@ -84,7 +59,7 @@ persistence:
     size: 50Gi
 
 network:
-  type: testnet # regtest, testnet, mainnet
+  type: testnet3 # regtest, testnet, mainnet
   enabled: true
   data:
     goat.json
