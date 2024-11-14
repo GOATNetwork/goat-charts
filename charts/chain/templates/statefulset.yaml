@@ -71,6 +71,8 @@ spec:
         volumeMounts:
         - name: geth-data
           mountPath: /root/.ethereum
+        ports:
+        - containerPort: 8545
         livenessProbe:
           exec:
             command: ["geth", "attach", "--exec", "eth.blockNumber"]
@@ -91,6 +93,8 @@ spec:
           mountPath: /goat
         - name: geth-data
           mountPath: /root/.ethereum
+        ports:
+        - containerPort: 26657
         readinessProbe:
           exec:
             command: ["goatd", "status"]
