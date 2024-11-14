@@ -15,51 +15,6 @@ spec:
       labels:
         {{- include "goat-geth.selectorLabels" . | nindent 8 }}
     spec:
-      initContainers:
-      - name: geth-genesis-init
-        image: "{{ .Values.image.geth.repository }}:{{ .Values.image.geth.tag }}"
-        imagePullPolicy: {{ .Values.image.geth.pullPolicy }}
-        command: ["sh", "-c"]
-        args:
-        - "geth init --cache.preimages=true --db.engine=pebble --state.scheme=path /genesis/geth.json"
-        volumeMounts:
-        - name: geth-data
-          mountPath: /root/.ethereum
-        - name: genesis-config
-          mountPath: /genesis
-
-      - name: goat-genesis-init
-        image: "{{ .Values.image.goat.repository }}:{{ .Values.image.goat.tag }}"
-        imagePullPolicy: {{ .Values.image.goat.pullPolicy }}
-        command: ["sh", "-c"]
-        args:
-        - "goatd init --overwrite --home /goat {{ .Values.network.type }} && cp -rfL /genesis/goat.json /goat/config/genesis.json"
-        volumeMounts:
-        - name: goat-data
-          mountPath: /goat
-        - name: genesis-config
-          mountPath: /genesis
-
-      - name: geth-bootnode-init
-        image: "ethereum/client-go:alltools-latest"
-        imagePullPolicy: {{ .Values.image.geth.pullPolicy }}
-        command: ["sh", "-c"]
-        args:
-        - "if [ ! -f /root/.ethereum/geth/nodekey ]; then bootnode -genkey nodekey -writeaddress; fi"
-        volumeMounts:
-        - name: geth-data
-          mountPath: /root/.ethereum
-
-      - name: goat-bootnode-init
-        image: "ghcr.io/goatnetwork/goat:testnet-2"
-        imagePullPolicy: {{ .Values.image.goat.pullPolicy }}
-        command: ["sh", "-c"]
-        args:
-        - "if [ ! -f /goat/config/node_key.json ]; then goatd comet show-node-id > /goat/config/node_key.json; fi"
-        volumeMounts:
-        - name: goat-data
-          mountPath: /goat
-
       containers:
       - name: geth
         image: "{{ .Values.image.geth.repository }}:{{ .Values.image.geth.tag }}"
@@ -106,10 +61,6 @@ spec:
           periodSeconds: 5
           timeoutSeconds: 5
           failureThreshold: 5
-      volumes:
-      - name: genesis-config
-        configMap:
-          name: {{ include "goat-geth.fullname" . }}-genesis
   volumeClaimTemplates:
   - metadata:
       name: geth-data
