@@ -25,3 +25,7 @@ spec:
     port: {{ .Values.service.goatRpcPort }}
     targetPort: 26657
     protocol: TCP
+  - name: goat-rest
+    port: {{ .Values.service.goatRestPort }}
+    targetPort: 1317
+    protocol: TCP

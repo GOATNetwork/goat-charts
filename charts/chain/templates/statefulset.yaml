@@ -54,6 +54,8 @@ spec:
           containerPort: 26657
         - name: goat-grpc
           containerPort: 9090
+        - name: goat-rest
+          containerPort: 1317
         readinessProbe:
           exec:
             command: ["goatd", "status"]

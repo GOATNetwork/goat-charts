@@ -60,5 +60,6 @@ service:
   type: ClusterIP
   goatGrpcPort: 9090
   goatRpcPort: 26657
+  goatRestPort: 1317
   gethRpcPort: 8545
   annotations: {}
