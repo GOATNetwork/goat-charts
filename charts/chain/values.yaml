@@ -17,13 +17,14 @@ resources:
     cpu: 500m
     memory: 512Mi
 
+replicas: 3
+
 # Network configuration
 network:
   chainId: 48816
 
 # Goat configuration
 goat:
-  enabled: true
   args:
     - start
     - --goat.geth=/root/.ethereum/geth.ipc
@@ -32,15 +33,24 @@ goat:
 
 # Geth configuration
 geth:
-  enabled: true
   args:
     - --goat=testnet3
     - --goat.preset=bootnode,rpc
     - --gcmode=archive
 
+# Node Roles represent the different roles a node can have in the network
+nodeRoles:
+  bootnode:
+    enabled: true
+    gethNodekeyPath: /root/.ethereum/nodekey
+    goatNodekeyPath: /root/.goat/nodekey
+  validator:
+    enabled: true
+  rpc:
+    enabled: true
+
 # Persistent storage
 persistence:
-  enabled: true
   geth:
     storageClass: "local-path"
     size: 50Gi
@@ -50,7 +60,6 @@ persistence:
 
 network:
   type: testnet3 # regtest, testnet, mainnet
-  enabled: true
   data:
     goat.json
     geth.json

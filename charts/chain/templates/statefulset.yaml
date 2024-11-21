@@ -6,7 +6,7 @@ metadata:
     {{- include "goat-geth.labels" . | nindent 4 }}
 spec:
   serviceName: {{ include "goat-geth.fullname" . }}
-  replicas: 1
+  replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
       {{- include "goat-geth.selectorLabels" . | nindent 6 }}
