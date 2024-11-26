@@ -15,6 +15,29 @@ spec:
       labels:
         {{- include "goat-geth.selectorLabels" . | nindent 8 }}
     spec:
+      affinity:
+        podAntiAffinity:
+{{- if .Values.podAntiAffinity }}
+  {{- if .Values.podAntiAffinity.enabled}}
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app.kubernetes.io/name
+                      operator: In
+                      values:
+                      - goat-geth
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: goatapp
+                operator: In
+                values:
+                - goatgeth
+  {{- end }}
+{{- end }}
       containers:
       - name: geth
         image: "{{ .Values.image.geth.repository }}:{{ .Values.image.geth.tag }}"
@@ -29,6 +52,8 @@ spec:
         ports:
         - name: geth-rpc
           containerPort: 8545
+        resources:
+{{ toYaml .Values.resources | indent 12 }}
         livenessProbe:
           exec:
             command: ["geth", "attach", "--exec", "eth.blockNumber"]
@@ -56,6 +81,8 @@ spec:
           containerPort: 9090
         - name: goat-rest
           containerPort: 1317
+        resources:
+{{ toYaml .Values.resources | indent 12 }}
         readinessProbe:
           exec:
             command: ["goatd", "status"]
