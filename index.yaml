@@ -3,6 +3,16 @@ entries:
   goat-geth:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2024-11-26T04:46:52.422524124Z"
+    description: A Helm chart for deploying Goat and Geth nodes
+    digest: 790cf3e6bd526f8ae075076f0c7f33e492755ebb2149f28523dc817f95ab4e8a
+    name: goat-geth
+    type: application
+    urls:
+    - https://github.com/GOATNetwork/goat-charts/releases/download/goat-geth-0.1.14/goat-geth-0.1.14.tgz
+    version: 0.1.14
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2024-11-14T14:04:37.61673122Z"
     description: A Helm chart for deploying Goat and Geth nodes
     digest: 22b8bb481270d2c15b02d57e2f59af1bd727010891f55b526dc7d6ea37702bc0
@@ -141,4 +151,4 @@ entries:
     urls:
     - https://github.com/GOATNetwork/goat-charts/releases/download/goat-geth-0.1.0/goat-geth-0.1.0.tgz
     version: 0.1.0
-generated: "2024-11-14T14:04:37.616833782Z"
+generated: "2024-11-26T04:46:52.422685466Z"
