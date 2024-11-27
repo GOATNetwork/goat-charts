@@ -14,10 +14,13 @@ resources:
     cpu: 100m
     memory: 128Mi
   limits:
-    cpu: 500m
-    memory: 512Mi
+    cpu: 5000m
+    memory: 10240Mi
 
 replicas: 3
+
+podAntiAffinity:
+  enabled: false
 
 # Network configuration
 network:
@@ -30,6 +33,12 @@ goat:
     - --goat.geth=/root/.ethereum/geth.ipc
     - --goat.preset=bootnode,rpc
     - --chain-id=goat-testnet3
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 15
+    periodSeconds: 5
+    timeoutSeconds: 5
+    failureThreshold: 5
 
 # Geth configuration
 geth:
@@ -37,6 +46,12 @@ geth:
     - --goat=testnet3
     - --goat.preset=bootnode,rpc
     - --gcmode=archive
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 15
+    periodSeconds: 5
+    timeoutSeconds: 5
+    failureThreshold: 5
 
 # Node Roles represent the different roles a node can have in the network
 nodeRoles:
@@ -53,16 +68,13 @@ nodeRoles:
 persistence:
   geth:
     storageClass: "local-path"
-    size: 50Gi
+    size: 100Gi
   goat:
     storageClass: "local-path"
-    size: 50Gi
+    size: 100Gi
 
 network:
   type: testnet3 # regtest, testnet, mainnet
-  data:
-    goat.json
-    geth.json
 
 # Service configuration
 service:

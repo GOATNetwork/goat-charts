@@ -65,13 +65,15 @@ spec:
         {{- end }}
         resources:
 {{ toYaml .Values.resources | indent 12 }}
+        {{- if .Values.geth.livenessProbe.enabled }}
         livenessProbe:
           exec:
             command: ["geth", "attach", "--exec", "eth.blockNumber"]
-          initialDelaySeconds: 5
-          periodSeconds: 5
-          timeoutSeconds: 5
-          failureThreshold: 5
+          initialDelaySeconds: {{ .Values.geth.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.geth.livenessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.geth.livenessProbe.timeoutSeconds }}
+          failureThreshold: {{ .Values.geth.livenessProbe.failureThreshold }}
+        {{- end }}
 
       - name: goat
         image: "{{ .Values.image.goat.repository }}:{{ .Values.image.goat.tag }}"
@@ -106,16 +108,18 @@ spec:
         {{- end }}
         resources:
 {{ toYaml .Values.resources | indent 12 }}
+        {{- if .Values.goat.readinessProbe.enabled }}
         readinessProbe:
           exec:
             command:
             - /bin/sh
             - -c
             - "goatd status | jq -e '.sync_info.catching_up == false'"
-          initialDelaySeconds: 5
-          periodSeconds: 5
-          timeoutSeconds: 5
-          failureThreshold: 5
+          initialDelaySeconds: {{ .Values.goat.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.goat.readinessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.goat.readinessProbe.timeoutSeconds }}
+          failureThreshold: {{ .Values.goat.readinessProbe.failureThreshold }}
+        {{- end }}
   volumeClaimTemplates:
   - metadata:
       name: geth-data
