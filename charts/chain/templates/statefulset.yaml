@@ -46,12 +46,23 @@ spec:
         {{- range .Values.geth.args }}
         - {{ . | quote }}
         {{- end }}
+        {{- if .Values.service.gethMetricsPort }}
+        - "--metrics"
+        - "--metrics.addr=0.0.0.0"
+        - "--metrics.port=7300"
+        {{- end }}
         volumeMounts:
         - name: geth-data
           mountPath: /root/.ethereum
         ports:
+        {{- if .Values.service.gethRpcPort }}
         - name: geth-rpc
           containerPort: 8545
+        {{- end }}
+        {{- if .Values.service.gethMetricsPort }}
+        - name: geth-metrics
+          containerPort: 7300
+        {{- end }}
         resources:
 {{ toYaml .Values.resources | indent 12 }}
         livenessProbe:
@@ -69,23 +80,38 @@ spec:
         {{- range .Values.goat.args }}
         - {{ . | quote }}
         {{- end }}
+        {{- if .Values.service.goatGrpcPort }}
+        - "--grpc.address=0.0.0.0:9090"
+        {{- end }}
+        {{- if .Values.service.goatRpcPort }}
+        - "--rpc.laddr=tcp://0.0.0.0:26657"
+        {{- end }}
         volumeMounts:
         - name: goat-data
           mountPath: /root/.goat
         - name: geth-data
           mountPath: /root/.ethereum
         ports:
+        {{- if .Values.service.goatRpcPort }}
         - name: goat-rpc
           containerPort: 26657
+        {{- end }}
+        {{- if .Values.service.goatGrpcPort }}
         - name: goat-grpc
           containerPort: 9090
+        {{- end }}
+        {{- if .Values.service.goatRestPort }}
         - name: goat-rest
           containerPort: 1317
+        {{- end }}
         resources:
 {{ toYaml .Values.resources | indent 12 }}
         readinessProbe:
           exec:
-            command: ["goatd", "status"]
+            command:
+            - /bin/sh
+            - -c
+            - "goatd status | jq -e '.sync_info.catching_up == false'"
           initialDelaySeconds: 5
           periodSeconds: 5
           timeoutSeconds: 5

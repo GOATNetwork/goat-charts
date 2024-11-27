@@ -13,19 +13,33 @@ spec:
   selector:
     {{- include "goat-geth.selectorLabels" . | nindent 4 }}
   ports:
+  {{- if .Values.service.gethMetricsPort }}
+  - name: geth-metrics
+    port: {{ .Values.service.gethMetricsPort }}
+    targetPort: 7300
+    protocol: TCP
+  {{- end }}
+  {{- if .Values.service.gethRpcPort }}
   - name: geth-rpc
     port: {{ .Values.service.gethRpcPort }}
     targetPort: 8545
     protocol: TCP
+  {{- end }}
+  {{- if .Values.service.goatGrpcPort }}
   - name: goat-grpc
     port: {{ .Values.service.goatGrpcPort }}
     targetPort: 9090
     protocol: TCP
+  {{- end }}
+  {{- if .Values.service.goatRpcPort }}
   - name: goat-rpc
     port: {{ .Values.service.goatRpcPort }}
     targetPort: 26657
     protocol: TCP
+  {{- end }}
+  {{- if .Values.service.goatRestPort }}
   - name: goat-rest
     port: {{ .Values.service.goatRestPort }}
     targetPort: 1317
     protocol: TCP
+  {{- end }}
