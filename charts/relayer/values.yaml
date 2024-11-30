@@ -1,0 +1,26 @@
+replicaCount: 1
+
+image:
+  repository: anvztor/relayer
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+    - name: grpc
+      port: 50051
+      targetPort: 50051
+    - name: p2p
+      port: 4001
+      targetPort: 4001
+
+persistence:
+  size: 10Gi
+  storageClass: ""
+
+env:
+  LIBP2P_BOOT_NODES: "/ip4/192.168.10.2/tcp/4001/p2p/12D3KooWPxRKQ8mrJspeyppXDbh8SdXq27jVD9p1CmVdi8nmPnq6"
