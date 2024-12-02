@@ -184,6 +184,16 @@ entries:
   goat-relayer:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2024-12-02T05:53:50.539309445Z"
+    description: A Helm chart for deploying Goat Relayer
+    digest: ae50ff09b5bf7d620211b4ea9d3d880c811299874390d5bb865c19e2ed1d3923
+    name: goat-relayer
+    type: application
+    urls:
+    - https://github.com/GOATNetwork/goat-charts/releases/download/goat-relayer-0.0.2/goat-relayer-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2024-11-30T09:00:57.913950903Z"
     description: A Helm chart for deploying Goat Relayer
     digest: bb94c991e23c882e6fbdae9c85df07e79d765c0529d0554a119df6002a86122f
@@ -192,4 +202,4 @@ entries:
     urls:
     - https://github.com/GOATNetwork/goat-charts/releases/download/goat-relayer-0.0.1/goat-relayer-0.0.1.tgz
     version: 0.0.1
-generated: "2024-11-30T09:00:57.914018489Z"
+generated: "2024-12-02T05:53:50.539362495Z"
