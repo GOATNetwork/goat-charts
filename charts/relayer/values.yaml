@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: anvztor/relayer
+  repository: goatnetwork/goat-relayer
   tag: latest
   pullPolicy: IfNotPresent
 
@@ -21,6 +21,20 @@ service:
 persistence:
   size: 10Gi
   storageClass: ""
+
+
+envFromSecrets:
+
+nodeAffinity:
+  enabled: false
+  name: zkm
+hostNetwork: true
+serviceAccount: mainnet-secret
+
+mountsecret:
+  enable: false
+  secretProviderClass: mainnet-secrets
+  secretName: awscredentials
 
 env:
   LIBP2P_BOOT_NODES: "/ip4/192.168.10.2/tcp/4001/p2p/12D3KooWPxRKQ8mrJspeyppXDbh8SdXq27jVD9p1CmVdi8nmPnq6"

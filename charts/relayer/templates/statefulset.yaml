@@ -15,7 +15,21 @@ spec:
       labels:
         {{- include "goat-relayer.selectorLabels" . | nindent 8 }}
     spec:
+      affinity:
+        nodeAffinity:
+{{- if .Values.nodeAffinity }}
+  {{- if .Values.nodeAffinity.enabled}}
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: relayerapp
+                operator: In
+                values:
+                -  {{ .Values.nodeAffinity.name }}
+      hostNetwork: {{ .Values.hostNetwork }}
       serviceAccountName: {{ .Values.serviceAccount }}
+  {{- end }}
+{{- end }}  
       {{- if .Values.mountsecret }}
       {{- if .Values.mountsecret.enable }}
       volumes:
