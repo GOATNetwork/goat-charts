@@ -36,7 +36,7 @@ spec:
               - key: goatapp
                 operator: In
                 values:
-                - goatgeth
+                - {{ .Values.podAntiAffinity.name }}
   {{- end }}
 {{- end }}
       containers:
