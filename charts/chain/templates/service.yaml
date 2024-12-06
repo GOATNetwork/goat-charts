@@ -25,6 +25,12 @@ spec:
     targetPort: 8545
     protocol: TCP
   {{- end }}
+  {{- if .Values.service.gethwebsocketPort }}
+  - name: geth-websocket
+    port: {{ .Values.service.gethwebsocketPort }}
+    targetPort: 8546
+    protocol: TCP
+  {{- end }}
   {{- if .Values.service.goatGrpcPort }}
   - name: goat-grpc
     port: {{ .Values.service.goatGrpcPort }}

@@ -64,6 +64,10 @@ spec:
         - name: geth-metrics
           containerPort: 7300
         {{- end }}
+        {{- if .Values.service.gethwebsocketPort }}
+        - name: geth-websocket
+          containerPort: 8546
+        {{- end }}
         resources:
 {{ toYaml .Values.resources | indent 12 }}
         {{- if .Values.geth.livenessProbe.enabled }}

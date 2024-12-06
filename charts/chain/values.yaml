@@ -85,4 +85,5 @@ service:
   goatRestPort: 1317
   gethRpcPort: 8545
   gethMetricsPort: 7300
+  gethwebsocketPort: 8546
   annotations: {}
