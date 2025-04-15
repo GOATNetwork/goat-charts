@@ -26,13 +26,16 @@ spec:
                 operator: In
                 values:
                 -  {{ .Values.nodeAffinity.name }}
+  {{- end }}
+{{- end }}
       hostNetwork: {{ .Values.hostNetwork }}
       serviceAccountName: {{ .Values.serviceAccount }}
-  {{- end }}
-{{- end }}  
       {{- if .Values.mountsecret }}
       {{- if .Values.mountsecret.enable }}
       volumes:
+      - name: tss-config
+        configMap:
+          name: {{ .Values.tssname }}-configmap
       - name: secrets-store-inline
         csi:
           driver: secrets-store.csi.k8s.io
@@ -70,6 +73,36 @@ spec:
             - name: secrets-store-inline
               mountPath: "/mnt/secrets-store"
               readOnly: true
+          resources:
+            {{- toYaml .Values.resources.relayer | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe.relayer | nindent 12 }}
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe.relayer | nindent 12 }}
+
+        - name: {{ .Values.tssname }}
+          image: "{{ .Values.tssimage.repository }}:{{ .Values.tssimage.tag }}"
+          imagePullPolicy: {{ .Values.tssimage.pullPolicy }}
+          ports:
+            {{- range .Values.service.tssports }}
+            - name: {{ .name }}
+              containerPort: {{ .targetPort }}
+              protocol: TCP
+            {{- end }}
+          volumeMounts:
+            - name: data
+              mountPath: /app/data
+            - name: tss-config
+              mountPath: /app/config/config.yaml
+              subPath: config.yaml
+              readOnly: true
+          resources:
+            {{- toYaml .Values.resources.tss | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe.tss | nindent 12 }}
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe.tss | nindent 12 }}
+
   volumeClaimTemplates:
     - metadata:
         name: data

@@ -1,9 +1,13 @@
 replicaCount: 1
-
+tssname: tss-node1
 image:
   repository: goatnetwork/goat-relayer
   tag: latest
   pullPolicy: IfNotPresent
+
+  tssrepository: goatnetwork/goat-tss
+  tssTag: latest
+  tssPullPolicy: IfNotPresent
 
 service:
   type: ClusterIP
@@ -17,7 +21,15 @@ service:
     - name: p2p
       port: 4001
       targetPort: 4001
-
+  tssports:
+  - name: tss-http
+    port: 8180
+    targetPort: 8180
+    nodePort: 8180
+  - name: tss-p2p
+    port: 9009
+    targetPort: 9009
+    nodePort: 9009
 persistence:
   size: 10Gi
   storageClass: ""
