@@ -113,6 +113,17 @@ spec:
         {{- end }}
         resources:
 {{ toYaml .Values.resources | indent 12 }}
+        {{- if .Values.goat.startupProbe.enabled }}
+        startupProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "test -S /root/.ethereum/geth.ipc"
+          initialDelaySeconds: {{ .Values.goat.startupProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.goat.startupProbe.periodSeconds }}
+          failureThreshold: {{ .Values.goat.startupProbe.failureThreshold }}
+        {{- end }}
         {{- if .Values.goat.readinessProbe.enabled }}
         readinessProbe:
           exec:
