@@ -33,7 +33,7 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
-              - key: goatapp
+              - key: goated
                 operator: In
                 values:
                 - {{ .Values.podAntiAffinity.name }}
