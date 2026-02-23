@@ -79,6 +79,18 @@ spec:
           timeoutSeconds: {{ .Values.geth.livenessProbe.timeoutSeconds }}
           failureThreshold: {{ .Values.geth.livenessProbe.failureThreshold }}
         {{- end }}
+        {{- if .Values.geth.readinessProbe.enabled }}
+        readinessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - "geth attach --exec 'eth.syncing' | grep -q false"
+          initialDelaySeconds: {{ .Values.geth.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.geth.readinessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.geth.readinessProbe.timeoutSeconds }}
+          failureThreshold: {{ .Values.geth.readinessProbe.failureThreshold }}
+        {{- end }}
 
       - name: goat
         image: "{{ .Values.image.goat.repository }}:{{ .Values.image.goat.tag }}"

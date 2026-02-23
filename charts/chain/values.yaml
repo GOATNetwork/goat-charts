@@ -53,6 +53,12 @@ geth:
     periodSeconds: 5
     timeoutSeconds: 5
     failureThreshold: 5
+  readinessProbe:
+    enabled: false
+    initialDelaySeconds: 15
+    periodSeconds: 5
+    timeoutSeconds: 5
+    failureThreshold: 5
 
 # Node Roles represent the different roles a node can have in the network
 nodeRoles:
